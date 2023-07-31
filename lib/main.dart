@@ -8,4 +8,3 @@ void main() {
   ));
 }
 
-//${currentTime.substring(10, 16)}

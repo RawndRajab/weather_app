@@ -30,22 +30,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
   late Map<String, dynamic> weatherDataAboutCity;
 
   void update(var res) {
-    setState(
-      () async {
-        if (res != null) {
-          temp = res['main']['temp'];
-          weatherId = res['weather'][0]['id'];
-          cityName = res['name'];
-          desc = wea.getMessage(temp.toInt(), cityName);
-          icon = wea.getWeatherIcon(weatherId);
-          print("updatee");
-          currentTime = await CurrentTime().fetchWeatherData(cityName);
-          setState(() {
-            currentTime = currentTime.substring(10, 16); // currentTime=
-          });
-        }
-      },
-    );
+    if (res != null) {
+      setState(() {
+        temp = res['main']['temp'];
+        weatherId = res['weather'][0]['id'];
+        cityName = res['name'];
+        desc = wea.getMessage(temp.toInt(), cityName);
+        icon = wea.getWeatherIcon(weatherId);
+        print("updatee");
+        getTime();
+      });
+    }
   }
 
   Future<void> getTime() async {
@@ -197,6 +192,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     const SizedBox(
